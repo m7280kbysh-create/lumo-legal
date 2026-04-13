@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learious - Authorization Callback</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 720px; margin: 80px auto; padding: 0 20px; line-height: 1.7; color: #333; text-align: center; }
+h1 { font-size: 28px; color: #222; }
+p { font-size: 16px; color: #666; }
+.status { font-size: 48px; margin-bottom: 16px; }
+a { color: #0066cc; }
+</style>
+<script>
+// Extract authorization code from URL and display status
+const params = new URLSearchParams(window.location.search);
+const code = params.get('code');
+const error = params.get('error');
+window.onload = function() {
+  if (code) {
+    document.getElementById('status').textContent = 'Authorization successful!';
+    document.getElementById('detail').textContent = 'You can close this window. Learious will now publish content to your TikTok account.';
+  } else if (error) {
+    document.getElementById('status').textContent = 'Authorization failed';
+    document.getElementById('detail').textContent = 'Error: ' + (params.get('error_description') || error);
+  }
+};
+</script>
+</head>
+<body>
+<div class="status">✓</div>
+<h1 id="status">Processing authorization...</h1>
+<p id="detail">Please wait while we complete the authorization.</p>
+<p><a href="index.html">Back to Learious</a></p>
+</body>
+</html>
